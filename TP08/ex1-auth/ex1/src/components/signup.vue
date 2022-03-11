@@ -17,7 +17,7 @@
             <input type="password" placeholder="Enter Password" name="psw" required>
             <br>
             <br>
-            <div>By creating an account you agree to our <a href="#">Terms & Privacy.</a></div>
+            <div>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy.</a></div>
             <button type="submit">Sign Up</button>
         </div>
     </form>
@@ -28,7 +28,6 @@
 @media (min-width: 1024px) {
   .register {
     min-height: 80vh;
-    /* display: flex; */
     padding: 16px;
     border: 2px solid #f1f1f1;
   }
@@ -48,7 +47,7 @@
     margin: 8px 0;
     border: none;
     cursor: pointer;
-    width: 50%;
+    width: 100%;
   }
 
   button:hover {

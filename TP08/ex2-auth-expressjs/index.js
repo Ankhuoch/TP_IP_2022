@@ -1,26 +1,15 @@
-const { response } = require('express');
-const express = require('express')
-// const { readFile } = require('fs');
-const app = express()
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const cors = require('cors')
 
-app.get('/', function (request, response) {
-    // readFile('./index.html', 'utf8', (err, html) => {
-    //     if(err) 
-    //         res.status(500).send("Error");
-    //     res.send(html)
-    // })
-    response.send("Hello");
-});
+app.use(cors({
+    origin: 'http://localhost:3000'
+}))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
-app.get('/detail', function (request, response) {
-    // readFile('./detail.html', 'utf8', (err, html) => {
-    //     if(err) 
-    //         res.status(500).send("Error");
-    //     res.send(html)
-    // })
-    response.send("Hi");
-});
 
-app.listen(3001, ()=> {
-    console.log("You app is aviable on http://localhost:3001");
-});
+app.use(require('./routes'));
+
+app.listen(3001, () => console.log("You app is aviable on http://localhost:3001"));
