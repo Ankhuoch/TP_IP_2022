@@ -1,4 +1,4 @@
-const Users = require("../models/user");
+const Users = require("../models/users");
 const register = async (params) => {
     try {
         const { email, username, firstName, lastName, password } = params;

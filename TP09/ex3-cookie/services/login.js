@@ -1,9 +1,15 @@
-const Users = require("../models/user");
+const Users = require("../models/users");
 const bcrypt = require('bcryptjs');
-const login = (email, password) => {
+const login = async (email, password) => {
     try {
         
-        bcrypt.compareSync(password, hash);
+        const user = await Users.findOne({ email })
+        if (!user){
+            throw 'The user is not found~'
+        }
+        if (!user.matchesPassword(password)) {
+            throw "The user's information is incorrects~"
+        }
         // Users.find({email})
         return {
             success: true,
@@ -19,5 +25,5 @@ const login = (email, password) => {
 }
 
 module.exports = {
-    login,
+    login
 }

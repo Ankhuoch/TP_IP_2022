@@ -1,10 +1,15 @@
+"use strict"
 var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var userSchema = new mongoose.Schema({
     username: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        validate: {
+            validator: async val => Users.doesntExist({username: val}),
+            message: ({value}) => `Username $(value) has already been taken.`
+        }
     },
     firstName: {
         type: String,
@@ -20,10 +25,16 @@ var userSchema = new mongoose.Schema({
         required: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
 }, {
     timestamps: true,
+    toJSON: {
+        transform(doc, ret){
+            delete ret.password;
+        }
+    }
 });
 
 userSchema.pre('save', function (next) {

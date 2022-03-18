@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
+var session = require('express-session')
 
 app.use(cors({
     origin: 'http://localhost:3000'
@@ -10,6 +11,18 @@ app.use(cors({
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+app.use(session({
+    secret: 'my-secret',
+    resave: true,
+    rolling: true,
+    saveUninitialized: true,
+    name: 'access_token',
+    cookie: {
+        maxAge: 1000 * 60 * 60 *2, // 2 hours
+        sameSite: true,
+        secure: false,
+    }
+}))
 // Connect mongodb
 require('./configs/db')();
 
