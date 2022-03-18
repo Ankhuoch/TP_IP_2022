@@ -1,0 +1,35 @@
+const Users = require("../models/user");
+const register = async (params) => {
+    try {
+        const { email, username, firstName, lastName, password } = params;
+
+        // check if email existed
+        const existed = await Users.findOne({ email });
+        if(existed)
+            throw "User is already existed~";
+        // create a new user
+        const newUser = {
+            email,
+            username,
+            firstName,
+            lastName,
+            password
+        }
+        // Insert to db
+        const createdUser = await Users.create(newUser);
+        
+        return {
+            success: true,
+            data: createdUser,
+        }
+    }catch (err) {
+        return {
+            success: false,
+            error: err || 'error'
+        }
+    }
+    
+}
+module.exports = {
+    register,
+}
