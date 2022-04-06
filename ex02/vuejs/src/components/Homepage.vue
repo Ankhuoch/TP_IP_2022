@@ -1,0 +1,101 @@
+<template>
+<html>
+<body>
+    <div class="wrapper">
+        <div class="input-wrapper">
+            <div class="input-form-wrapper">
+                <div>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" placeholder="c programming"><br>
+                    <label for="category">Category:</label><br>
+                    <input type="text" id="category" name="category" placeholder="coding">
+                    <label for="price">Price:</label><br>
+                    <input type="text" id="price" name="price" placeholder="1,000 riel"><br>
+
+                    <button type="button" onclick="onSubmit()">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="list-wrapper">
+            <div id="grid">
+                <div class="box">
+                    <div class="box-action-wrapper">
+                        <button type="button" onclick="onDelete()">Delete</button>
+                        <button type="button" onclick="onUpdate()">Change name</button>
+                    </div>
+                    <div class="book-icon-wrapper">
+                        <img src="./book_icon.png" alt="#">
+                    </div>
+                    <div class="book-info-wrapper">
+                        <span>Name:</span><br/>
+                        <span>Price:</span><br/>
+                        <span>Category:</span><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</template>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wrapper {
+    background-color: rgb(71, 73, 73);
+}
+.input-wrapper {
+    height: 97%;
+    width: 300px;
+    background-color: rgb(249, 250, 250);
+    position: fixed;
+    padding: 10px;
+}
+
+.input-form-wrapper input[type=text] {
+    width: 100%;
+    border: 1px solid rgb(204, 204, 207);
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.list-wrapper {
+    height: auto;
+    width: 800px;
+    top: 0px;
+    margin-left: 350px;
+    border-radius: 5px;
+    background-color: #a5a1a1;
+}
+.list-wrapper .grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.box {
+    display: inline-grid;
+    margin: 2px;
+    margin-left: 1px;
+    width: 20%;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 3px 3px 2px 0px rgba(50, 50, 50, 0.5);
+    border: 1px solid rgba(212, 211, 211, 0.8);
+}
+img {
+    width: 120px;
+    margin: 10px 20px;
+}
+.book-infor-wrapper {
+    padding: 5px;
+}
+</style>
+
