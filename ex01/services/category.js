@@ -38,23 +38,33 @@ const create = async (newCategory) => {
 }
 
 const findAll = async () => {
-  try{
     const result = await Categories.find();
+    return result;
+}
+
+const remove = async (id) => {
+    await Categories.findByIdAndDelete(id);
     return {
         success: true,
-        data: result
+        msg: "deleted"
     };
-  }catch (err){
-      return {
-          success: false,
-          error: err || 'error'
-      }
-  }
+}
+
+const update = async (id, name1, desc1, imageUrl1) => {
+    var data = {
+      name : name1,
+      desc : desc1,
+      imageUrl : imageUrl1
+    };
+    const result = await Categories.findByIdAndUpdate(id, data);
+    return result;
 }
 
 module.exports = {
     findCategorizedItems,
     create,
     findAll,
-    findById
+    findById,
+    remove,
+    update
 }

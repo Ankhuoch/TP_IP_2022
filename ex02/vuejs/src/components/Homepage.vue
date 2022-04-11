@@ -1,6 +1,4 @@
 <template>
-<html>
-<body>
     <div class="wrapper">
         <div class="input-wrapper">
             <div class="input-form-wrapper">
@@ -19,12 +17,8 @@
         <div class="list-wrapper">
             <div id="grid">
                 <div class="box">
-                    <div class="box-action-wrapper">
-                        <button type="button" onclick="onDelete()">Delete</button>
-                        <button type="button" onclick="onUpdate()">Change name</button>
-                    </div>
                     <div class="book-icon-wrapper">
-                        <img src="./book_icon.png" alt="#">
+                        <img src="../assets/phone.jpg" alt="#">
                     </div>
                     <div class="book-info-wrapper">
                         <span>Name:</span><br/>
@@ -35,8 +29,6 @@
             </div>
         </div>
     </div>
-</body>
-</html>
 </template>
 
 <style>

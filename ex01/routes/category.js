@@ -17,20 +17,22 @@ router.post('/create', auth.ensureSignedIn, async (req, res, next) => {
     res.json(result);
 })
 // all users
-router.get('/all', (req, res) => {
-    const categories = categoryService.findAll();
+router.get('/all', async (req, res) => {
+    const categories = await categoryService.findAll();
     res.json(categories);
 })
 
-router.post('/update', auth.ensureSignedIn, auth.currentUser,async (req, res, next) => {
-    const { currentUser } = req;
-    const result = await userService.findById(currentUser?._id);
+router.post('/update/:id', auth.ensureSignedIn, auth.currentUser,async (req, res, next) => {
+    const { id } = req.params;
+    const { name, desc, imageUrl } = req.body;
+    const result = await categoryService.update(id, { name, desc, imageUrl });
     res.json(result);
 })
 
-router.post('/delete', auth.ensureSignedIn, auth.currentUser, async (req, res, next) => {
-    const { currentUser } = req;
-    const result = await userService.findById(currentUser?._id);
+
+router.post('/delete/:id', auth.ensureSignedIn, auth.currentUser, async (req, res, next) => {
+    const { id } = req.params;
+    const result = await categoryService.remove(id);
     res.json(result);
 })
 module.exports = router;

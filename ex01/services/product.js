@@ -1,33 +1,12 @@
 const Products = require("../models/products")
 
 const findById = async (id) => {
-  try {
-    const product = await Products.findById(id);
-    return {
-      success: true,
-      data: product
-    };
-  } catch (err) {
-    return {
-      success: false,
-      error: err || 'error'
-    }
-  }
+    return await Products.findById(id);
 }
 
-const findAll = async ()=>{
-  try{
-      const product = await Products.find();
-      return {
-          success: true,
-          data: product
-      };
-  }catch (err){
-      return {
-          success: false,
-          error: err || 'error'
-      }
-  }
+const findAll = async () => {
+    const product = await Products.find();
+    return product;
 }
 
 const create = async (newProduct) => {
@@ -35,34 +14,23 @@ const create = async (newProduct) => {
   return createdProduct;
 }
 
-const update = async (id) => {
-  try {
-    Users.findByIdAndUpdate(id);
-    return {
-        success: true,
-        msg: "updated"
-    };
-  } catch (err) {
-      return {
-          success: false,
-          error: err || 'error'
-      }
-  }
+const update = async (id, title, imageUrl, desc) => {
+  var data = {
+    title : title,
+    imageUrl: imageUrl,
+    desc : desc,
+  };
+  const result = await Products.findByIdAndUpdate(id, data);
+  await Products.save();
+  return result;
 }
 
 const remove = async (id) => {
-  try {
-    Users.findByIdAndDelete(id);
-    return {
-        success: true,
-        msg: "deleted"
-    };
-  }catch (err) {
-      return {
-          success: false,
-          error: err || 'error'
-      }
-  }
+  await Products.findByIdAndDelete(id);
+  return {
+    success: true,
+    msg: "deleted"
+  };
 }
 
 module.exports = {
