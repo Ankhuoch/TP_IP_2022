@@ -1,82 +1,70 @@
 const Categories = require('../models/categories')
 
+
 const findById = async (id) => {
-    try {
-        const category = await Categories.findById(id);
-        return {
-          success: true,
-          data: category
-        };
-      } catch (err) {
-        return {
-          success: false,
-          error: err || 'error'
+  return await Categories.findById(id);
+}
+
+const findCategorizedItems = async () => {
+    return await Categories.aggregate([
+      {
+        $lookup: {
+          from: "items",
+          localField: "_id",
+          foreignField: "category",
+          as: "items"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          desc: 1,
+          imageUrl: 1,
+          items: {
+            _id: 1,
+            name: 1,
+            category: 1,
+            desc: 1,
+          }
         }
       }
+    ])
+}
+
+const create = async (newCategory) => {
+    const createdCate = await Categories.create(newCategory);
+    return createdCate;
 }
 
 const findAll = async () => {
-    try{
-        const category = await Categories.find();
-        return {
-            success: true,
-            data: category
-        };
-    }catch (err){
-        return {
-            success: false,
-            error: err || 'error'
-        }
-    }
+    const result = await Categories.find();
+    return result;
 }
 
-const create = async () => {
-    const newProduct = {
-        name,
-        imageUrl,
-        desc
-      }
-      const createdProduct = await Products.create(newProduct);
-      return {
+const remove = async (id) => {
+    await Categories.findByIdAndDelete(id);
+    return {
         success: true,
-        data: createdProduct,
-      }
+        msg: "deleted"
+    };
 }
 
-const update = async () => {
-    try {
-        Users.findByIdAndUpdate(id);
-        return {
-            success: true,
-            msg: "updated"
-        };
-      } catch (err) {
-          return {
-              success: false,
-              error: err || 'error'
-          }
-      }
-}
-
-const remove = async () => {
-    try {
-        Users.findByIdAndDelete(id);
-        return {
-            success: true,
-            msg: "deleted"
-        };
-      }catch (err) {
-          return {
-              success: false,
-              error: err || 'error'
-          }
-      }
+const update = async (id, name1, desc1, imageUrl1) => {
+    var data = {
+      name : name1,
+      desc : desc1,
+      imageUrl : imageUrl1
+    };
+    const result = await Categories.findByIdAndUpdate(id, data);
+    return result;
 }
 
 module.exports = {
-    findById,
-    findAll,
+    findCategorizedItems,
     create,
-    update,
-    remove
+    findAll,
+    findById,
+    remove,
+    update
 }

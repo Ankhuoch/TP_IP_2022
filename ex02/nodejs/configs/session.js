@@ -9,7 +9,7 @@ module.exports = async (app) => {
   // }).catch(console.error)
 
   app.use(session({
-    store: new RedisStore({ client: redisClient }),
+    // store: new RedisStore({ client: redisClient }),
     secret: 'my-secret',
     resave: true,
     rolling: true,

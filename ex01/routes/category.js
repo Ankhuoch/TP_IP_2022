@@ -25,7 +25,8 @@ router.get('/all', async (req, res) => {
 router.post('/update/:id', auth.ensureSignedIn, auth.currentUser,async (req, res, next) => {
     const { id } = req.params;
     const { name, desc, imageUrl } = req.body;
-    const result = await categoryService.update(id, { name, desc, imageUrl });
+    const result = await categoryService.update({_id: id}, { name, desc, imageUrl });
+    await result.save();
     res.json(result);
 })
 

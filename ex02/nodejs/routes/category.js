@@ -5,31 +5,34 @@ const userService = require('../services/user');
 var router = express.Router();
 const categoryService = require('../services/category.js');
 
-router.get('/:id', auth.ensureSignedIn, async function (request, response, next) {
-    const { id } = request.params;
+router.get('/id/:id', auth.ensureSignedIn, async function (req, res) {
+    const { id } = req.params;
     const result = await categoryService.findById(id);
-    response.json(result);
-})
-
-router.post('/create', auth.ensureSignedIn, (req, res, next) => {
-    const createdProduct = categoryService.create(req.body)
-    res.json(createdProduct);
-})
-// all users
-router.get('/all', auth.ensureSignedIn, (req, res) => {
-    const categories = categoryService.findAll();
-    res.json(categories);
-})
-
-router.post('/update', auth.ensureSignedIn, auth.currentUser,async (req, res, next) => {
-    const { currentUser } = req;
-    const result = await userService.findById(currentUser?._id);
     res.json(result);
 })
 
-router.post('/delete', auth.ensureSignedIn, auth.currentUser, async (req, res, next) => {
-    const { currentUser } = req;
-    const result = await userService.findById(currentUser?._id);
+router.post('/create', auth.ensureSignedIn, async (req, res, next) => {
+    const { name, desc, imageUrl } = req.body;
+    const result = await categoryService.create({ name, desc, imageUrl })
+    res.json(result);
+})
+// all users
+router.get('/all', async (req, res) => {
+    const categories = await categoryService.findAll();
+    res.json(categories);
+})
+
+router.post('/update/:id', auth.ensureSignedIn, auth.currentUser,async (req, res, next) => {
+    const { id } = req.params;
+    const { name, desc, imageUrl } = req.body;
+    const result = await categoryService.update(id, { name, desc, imageUrl });
+    res.json(result);
+})
+
+
+router.post('/delete/:id', auth.ensureSignedIn, auth.currentUser, async (req, res, next) => {
+    const { id } = req.params;
+    const result = await categoryService.remove(id);
     res.json(result);
 })
 module.exports = router;

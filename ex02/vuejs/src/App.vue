@@ -1,15 +1,12 @@
 <script setup>
-import Home from './components/Homepage.vue'
+import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <main>
-    <Home />
-  </main>
+  <RouterView />
 </template>
 
 <style>
-@import './assets/base.css';
 
 #app {
   max-width: 1280px;

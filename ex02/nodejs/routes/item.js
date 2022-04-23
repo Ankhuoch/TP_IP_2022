@@ -5,30 +5,34 @@ const { } = require('../schemas');
 var router = express.Router();
 const itemService = require('../services/item');
 
-router.get('/:id', auth.ensureSignedIn, async function (req, res, next) {
+router.get('/id/:id', auth.ensureSignedIn, async function (req, res, next) {
   const { id } = req.params;
-  const result = await itemService.findById(id);
-    response.json(result);
+  const result = await itemService.findById(id)
+  res.json(result);
 })
 
 router.post('/create', auth.ensureSignedIn, async (req, res, next) => {
-  const createditem = await itemService.create(req.body)
-  res.json(createditem);
+  const { name, desc, category } = req.body;
+  const result = await itemService.create({ name, desc, category })
+  res.json(result);
 })
 
 // all users
-router.get('/all', (req, res) => {
-    const items = itemService.findAll();
+router.get('/all', async (req, res) => {
+    const items = await itemService.findAll();
     res.json(items);
 })
 
-router.post('/update', auth.ensureSignedIn, async (req, res, next) => {
-  const item = await itemService.update(req.body)
-  res.json(item);
+router.post('/update/:id', auth.ensureSignedIn, async (req, res, next) => {
+  const { id } = req.params;
+  const { name, desc} = req.body;
+  const result = await itemService.update(id, { name, desc});
+  res.json(result);
 })
 
-router.post('/delete', auth.ensureSignedIn, async (req, res, next) => {
-  const item = await itemService.remove(req.body)
+router.post('/delete/:id', auth.ensureSignedIn, async (req, res, next) => {
+  const { id } = req.params;
+  const item = await itemService.remove(id)
   res.json(item);
 })
 

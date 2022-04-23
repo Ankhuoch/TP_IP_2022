@@ -1,32 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = express();
 const cors = require('cors')
-const mongoose = require('mongoose');
-var session = require('express-session')
+const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3000',
-    credentials: true,
+  origin: 'http://localhost:3000',
+  credentials: true
 }))
-app.use(bodyParser.urlencoded({extended: true}));
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+// parse application/json
 app.use(bodyParser.json());
 
-app.use(session({
-    secret: 'my-secret',
-    resave: true,
-    rolling: true,
-    saveUninitialized: true,
-    name: 'access_token',
-    cookie: {
-        maxAge: 1000 * 60 * 60 *2, // 2 hours
-        sameSite: true,
-        secure: false,
-    }
-}))
+// Connect session
+require('./configs/session')(app);
+
 // Connect mongodb
 require('./configs/db')();
 
 app.use(require('./routes'));
 
-app.listen(process.env.PORT || 3001, () => console.log("You app is aviable on http://localhost:3001"));
+app.use((err, req, res, next) => {
+  return res.json({
+    success: false,
+    code: 0,
+    error: err
+  })
+})
+
+
+app.listen(process.env.PORT || 3001, () => console.log('App avaiable on http://localhost:3001'))

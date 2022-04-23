@@ -3,44 +3,55 @@
         <div class="input-wrapper">
             <div class="input-form-wrapper">
                 <div>
-                    <label for="name">Name:</label><br>
-                    <input type="text" id="name" placeholder="c programming"><br>
-                    <label for="category">Category:</label><br>
-                    <input type="text" id="category" name="category" placeholder="coding">
-                    <label for="price">Price:</label><br>
-                    <input type="text" id="price" name="price" placeholder="1,000 riel"><br>
-
-                    <button type="button" onclick="onSubmit()">Add</button>
+                    <ul>
+                        <li>📱 Phone
+                            <ul>
+                                <li>iPhone</li>
+                                <li>Samsung</li>
+                                <li>LG</li>
+                            </ul>
+                        </li>
+                        <li>💻 Computer
+                            <ul>
+                                <li>Apple</li>
+                                <li>Asus</li>
+                                <li>Dell</li>
+                                <li>Toshiba</li>
+                                <li>Acer</li>
+                            </ul>
+                        </li>
+                        <li>🖥 Monitor
+                            <ul>
+                                <li>Apple</li>
+                                <li>Asus</li>
+                                <li>Dell</li>
+                                <li>Toshiba</li>
+                                <li>Acer</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
         <div class="list-wrapper">
             <div id="grid">
-                <div class="box">
+                <div class="box" method="POST">
                     <div class="book-icon-wrapper">
                         <img src="../assets/phone.jpg" alt="#">
                     </div>
                     <div class="book-info-wrapper">
-                        <span>Name:</span><br/>
-                        <span>Price:</span><br/>
-                        <span>Category:</span><br/>
+                        <span>Shop1:</span><br/>
+                        <span>Shop2:</span><br/>
+                        <span>Shop3:</span><br/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 <style>
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 .wrapper {
-    background-color: rgb(71, 73, 73);
+    background-color: rgb(99, 100, 100);
 }
 .input-wrapper {
     height: 97%;
